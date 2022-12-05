@@ -5,7 +5,7 @@
 Desktop application of the 2 part cold storage solution system described below
 
 == Cold storage system - *Sallet*
-*Sallet* is for users aware of the importance of low level data. Users who are able to make decisions close TX and UTXO scope. +
+*Sallet* is for users aware of the importance of low level data. Users who are able to make decisions close the TX and UTXO scope. +
 *Sallet* is ment for users who do not like when 'user-friendliness' abstacts
   away important information and hides substantial data from the conscious user. +
 *Sallet* is also for users who want to keep their Satoshis close to the chest.
