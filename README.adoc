@@ -50,8 +50,8 @@ Testing using probability:: project will include automated tests to constantly m
 == Building blocks
 There are two devices we will develop for:
 
-=== Signing device
+=== .Signing device
 Sensitive functions will be taken over by the isolated device
 
-=== Desktop application
+=== .Desktop application
 In order to still use the environment you know and love, all functions not needing special protection are handled on your desktop, or even by your phone.
