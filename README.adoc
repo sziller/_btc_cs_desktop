@@ -24,12 +24,12 @@ In short, is an unpredictable adversary actor on it's own.
 ____
 
 //[TIP]
-****
+____
 Proposed solution to the assumpltion: we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
 The device is only allowed to communicate via analogue methods with the outside word.
 Data meant to exit the device is turned into QR codes later to be displayed on a dedicated screen.
 Entropy is off analogue source.
-****
+____
 
 Isolation in detail:: Signing device does not house hardware capable of wireless messaging, bluetooth, NFC or and mediumless data transfer methods.
 Device can additionally be shielded mechanically. Device will receive input over a camera in QR format only.
