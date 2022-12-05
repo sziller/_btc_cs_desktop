@@ -21,15 +21,17 @@ ____
 - infected by malicous code,
 - harboring null-day-backdoors,
 - not able to generate proper entropy.
-In short, is an unpredictable and adversary actor on it's own.
+In short, is an unpredictable and adversary actor on it's own. +
+Obviously we still need to refine these assumptions, as a fully unpredictable machine can not be dealt with. We simply plan for the worst we can still handle.  
 ____
 
 //[TIP]
 ____
-`Proposed solution to the assumpltion:` we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing corrupted may leave it. +
-The device is only allowed to communicate via analogue methods with the outside word. +
+`Proposed solution to the assumpltion:` we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing corrupted may leave it. The device is only allowed to communicate via analogue methods with the outside word. +
 Data meant to exit the device is turned into QR codes later to be displayed on a dedicated screen. +
 Entropy is off analogue source.
+Umpredicibility is dealt with using probability: Results of key management can and will be checked on regular basis against external sources.
+As we cannot handle all negative situations, we need to constantly audit possible worst cases, and adjust risk on higher levels by not creating transactions commanding more value, than what a possible attack on them may cost (even with the famous 'number-go-up' technology in mind!
 ____
 
 Isolation in detail:: Signing device does not house hardware capable of wireless messaging, bluetooth, NFC or and mediumless data transfer methods.
@@ -41,4 +43,4 @@ Most of the data entering the device AFTER installation is small enough to be re
 Scope of the isolation:: Private keys, signatures, and random numbers are used, when Raw transactions are signed. Looking at the technical level, the adversary signing device only needs to receive Raw transactions and return signatures. +
 This does not mean, we have to limit the features of the signing device as long as not limiting it has other security advantages or user friendly features not affecting security.
 
-Random number generation:: 
+Random number generation:: Private keys are generated using 
