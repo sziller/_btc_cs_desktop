@@ -43,4 +43,15 @@ Most of the data entering the device AFTER installation is small enough to be re
 Scope of the isolation:: Private keys, signatures, and random numbers are used, when Raw transactions are signed. Looking at the technical level, the adversary signing device only needs to receive Raw transactions and return signatures. +
 This does not mean, we have to limit the features of the signing device as long as not limiting it has other security advantages or user friendly features not affecting security.
 
-Random number generation:: Private keys are generated using 
+Random number generation:: Private keys are generated using
+
+Testing using probability:: project will include automated tests to constantly monitor results of key generators against results of different online key generators. These will also test if code uses user-provided entropy. The same method will be used to check if signature module uses proper entropy.
+
+== Building blocks
+There are two devices we will develop for:
+
+=== Signing device
+Sensitive functions will be taken over by the isolated device
+
+=== Desktop application
+In order to still use the environment you know and love, all functions not needing special protection are handled on your desktop, or even by your phone.
