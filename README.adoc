@@ -16,6 +16,7 @@ I'll create a low-level off-line, off-chain bitcoin transaction handler. First a
 //[NOTE]
 ____
 `Fundamental security assumption:` The signing device touching private keys, signing transactions or handling random numbers is at all times:
+
 - running flawed software, 
 - infected by malicous code,
 - contains null-day-backdoors,
