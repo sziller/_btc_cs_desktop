@@ -36,3 +36,8 @@ Device can additionally be shielded mechanically. Device will receive input over
 Input is not the issue. The problem are input methods, that may unbeknownst to the user communicate outwards:
 We will not use UTP connections. Digital USB data transfer may only hapen using write protected SD cards. However write protection on most SD cards is OS (software) managed, it is not secure. Thus once used SD card should immediatelly be destroyed (Mission:Impossible).
 Most of the data entering the device AFTER installation is small enough to be represented as a small number of QR Codes.
+
+Scope of the isolation:: Private keys, signatures, and random numbers are used, when Raw transactions are signed. Looking at the technical level, the adversary signing device only needs to receive Raw transactions and return signatures. +
+This does not mean, we have to limit the features of the signing device as long as not limiting it has other security advantages or user friendly features not affecting security.
+
+Random number generation:: 
