@@ -13,7 +13,7 @@ It is a cold storage system, meaning:
 == Description
 I'll create a low-level off-line, off-chain bitcoin transaction handler. First and foremost a Cold storage system using up-to-date protocols.
 
-[NOTE]
+//[NOTE]
 ====
 Fundamental security assumption: The signing device touching private keys, signing transactions or handling random numbers is at all times:
 - running flawed software, 
@@ -23,7 +23,7 @@ Fundamental security assumption: The signing device touching private keys, signi
 In short, is an unpredictable adversary actor on it's own.
 ====
 
-[TIP]
+//[TIP]
 ====
 Proposed solution to the assumpltion: we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
 The device is only allowed to communicate via analogue methods with the outside word.
