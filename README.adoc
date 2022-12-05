@@ -1,0 +1,38 @@
+= _btc_cs_desktop
+Desktop application of the 2 part cold storage solution system described below.
+
+== Cold storage system - Sallet
+Sallet is for users aware of the importance of low level data. Users who are able to make decisions close TX and UTXO scope. +
+Sallet is ment for users who do not like when 'user-friendlyness' abstacts away important information and hides substantial data from the conscious user.
+Sallet is also for users who want to keep their Satoshis close to the chest.
+It is a cold storage system, meaning:
+ 
+ - private keys (and all data private keys can be derived from) are kept off-line
+ - signing hapens off-line
+
+== Description
+I'll create a low-level off-line, off-chain bitcoin transaction handler. First and foremost a Cold storage system using up-to-date protocols.
+
+[NOTE]
+====
+Fundamental security assumption: The signing device touching private keys, signing transactions or handling random numbers is at all times:
+- running flawed software, 
+- infected by malicous code,
+- contains null-day-backdoors,
+- is not able to generate proper entropy.
+In short, is an unpredictable adversary actor on it's own.
+====
+
+[TIP]
+====
+Proposed solution to the assumpltion: we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
+The device is only allowed to communicate via analogue methods with the outside word.
+Data meant to exit the device is turned into QR codes later to be displayed on a dedicated screen.
+Entropy is off analogue source.
+====
+
+Isolation in detail:: Signing device does not house hardware capable of wireless messaging, bluetooth, NFC or and mediumless data transfer methods.
+Device can additionally be shielded mechanically. Device will receive input over a camera in QR format only.
+Input is not the issue. The problem are input methods, that may unbeknownst to the user communicate outwards:
+We will not use UTP connections. Digital USB data transfer may only hapen using write protected SD cards. However write protection on most SD cards is OS (software) managed, it is not secure. Thus once used SD card should immediatelly be destroyed (Mission:Impossible).
+Most of the data entering the device AFTER installation is small enough to be represented as a small number of QR Codes.
