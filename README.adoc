@@ -14,22 +14,22 @@ It is a cold storage system, meaning:
 I'll create a low-level off-line, off-chain bitcoin transaction handler. First and foremost a Cold storage system using up-to-date protocols.
 
 //[NOTE]
-====
+____
 Fundamental security assumption: The signing device touching private keys, signing transactions or handling random numbers is at all times:
 - running flawed software, 
 - infected by malicous code,
 - contains null-day-backdoors,
 - is not able to generate proper entropy.
 In short, is an unpredictable adversary actor on it's own.
-====
+____
 
 //[TIP]
-====
+****
 Proposed solution to the assumpltion: we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
 The device is only allowed to communicate via analogue methods with the outside word.
 Data meant to exit the device is turned into QR codes later to be displayed on a dedicated screen.
 Entropy is off analogue source.
-====
+****
 
 Isolation in detail:: Signing device does not house hardware capable of wireless messaging, bluetooth, NFC or and mediumless data transfer methods.
 Device can additionally be shielded mechanically. Device will receive input over a camera in QR format only.
