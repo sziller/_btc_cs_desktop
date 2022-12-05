@@ -1,5 +1,7 @@
 = _btc_cs_desktop
+
 *Sallet* - it protects your head
+
 Desktop application of the 2 part cold storage solution system described below.
 
 == Cold storage system - *Sallet*
