@@ -15,7 +15,7 @@ I'll create a low-level off-line, off-chain bitcoin transaction handler. First a
 
 //[NOTE]
 ____
-Fundamental security assumption: The signing device touching private keys, signing transactions or handling random numbers is at all times:
+`Fundamental security assumption:` The signing device touching private keys, signing transactions or handling random numbers is at all times:
 - running flawed software, 
 - infected by malicous code,
 - contains null-day-backdoors,
@@ -25,7 +25,7 @@ ____
 
 //[TIP]
 ____
-Proposed solution to the assumpltion: we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
+`Proposed solution to the assumpltion:` we implement an air-gap after the adversary device. Anything is allowed to enter the device, nothing may leave it.
 The device is only allowed to communicate via analogue methods with the outside word.
 Data meant to exit the device is turned into QR codes later to be displayed on a dedicated screen.
 Entropy is off analogue source.
