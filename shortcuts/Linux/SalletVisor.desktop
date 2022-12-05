@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SalletVisor
+Type=Application
+Encoding=UTF-8
+Comment=Desktop app for the Sallet ColdStorage system
+Icon=/home/sziller/Projects/011_Bitcoin/_btc_cs_desktop/icons/Sallet.tga
+Exec=python3 /home/sziller/Projects/011_Bitcoin/_btc_cs_desktop/App_SalletVisor.py True
+Terminal=true
+Name[en_GB]=SalletVisor
