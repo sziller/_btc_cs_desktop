@@ -50,8 +50,12 @@ Testing using probability:: project will include automated tests to constantly m
 == Building blocks
 There are two devices we will develop for:
 
-=== .Signing device
+=== 1. Signing device
 Sensitive functions will be taken over by the isolated device
 
-=== .Desktop application
+=== 2. Desktop application
 In order to still use the environment you know and love, all functions not needing special protection are handled on your desktop, or even by your phone.
+
+== Desktop application
+This repository exclusivelly includes development for teh Desktop App.
+Please note, your desktop will have to have a working camera connected to, as all data leaving the Signing Device enters your desktop app as a QR Code.
