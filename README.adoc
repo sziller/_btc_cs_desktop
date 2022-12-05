@@ -19,9 +19,9 @@ ____
 
 - running flawed software, 
 - infected by malicous code,
-- contains null-day-backdoors,
-- is not able to generate proper entropy.
-In short, is an unpredictable adversary actor on it's own.
+- harboring null-day-backdoors,
+- not able to generate proper entropy.
+In short, is an unpredictable and adversary actor on it's own.
 ____
 
 //[TIP]
