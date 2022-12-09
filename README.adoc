@@ -6,13 +6,13 @@ Desktop application of the 2 part cold storage solution system described below
 
 == Cold storage system - *Sallet*
 *Sallet* is for users aware of the importance of low level data. Users who are able to make decisions close the TX and UTXO scope. +
-*Sallet* is ment for users who do not like when 'user-friendliness' abstacts
+*Sallet* is meant for users who do not like when 'user-friendliness' abstracts
   away important information and hides substantial data from the conscious user. +
 *Sallet* is also for users who want to keep their Satoshis close to the chest.
   It is a cold storage system, meaning:
  
  - private keys (and all data private keys can be derived from) are kept off-line
- - signing hapens off-line
+ - signing happens off-line
 
 == Description
 I'll create a low-level off-line, off-chain bitcoin transaction handler. First and foremost a Cold storage system using up-to-date protocols.
