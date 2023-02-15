@@ -2,7 +2,8 @@
 
 *Sallet* - it protects your head
 
-Desktop application of the 2 part cold storage solution system described below
+Desktop application of the 2 part cold storage solution system described below.
+Can be used as the frontend of my Raspi based Ice Cold wallet.
 
 == Cold storage system - *Sallet*
 *Sallet* is for users aware of the importance of low level data. Users who are able to make decisions close the TX and UTXO scope. +

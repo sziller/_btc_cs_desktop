@@ -1,0 +1,12 @@
+.idea/
+.idea/workspace.xml
+__pycache__
+API_key/
+API_key/API_key.txt
+UTXO/
+UTXO/utxo.py
+data/
+data/*.json
+data/*.yaml
+documentation/devkeys.txt
+venv/
