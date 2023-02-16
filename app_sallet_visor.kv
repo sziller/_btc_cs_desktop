@@ -1,0 +1,376 @@
+#: kivy 2.1.0
+## ------------------------------------------------------------------
+## - Font settings in general. All used fonts to be defined here    -
+## ------------------------------------------------------------------
+#:set fn_title "./fonts/Ubuntu-B.ttf"
+#:set fs_title 20
+
+#:set fn_subtitle "./fonts/Ubuntu-B.ttf"
+#:set fs_subtitle 16
+
+#:set fn_subsubtitle "./fonts/Ubuntu-B.ttf"
+#:set fs_subsubtitle 14
+
+#:set fn_button "./fonts/Ubuntu-BI.ttf"
+#:set fs_button 14
+
+#:set fn_text "./fonts/Ubuntu-C.ttf"
+#:set fs_text 12
+
+#:set fn_data "./fonts/Ubuntu-LI.ttf"
+#:set fs_data 12
+
+## ------------------------------------------------------------------
+## - Filelinks to be used globally:                                 -
+## ------------------------------------------------------------------
+
+#:set default_image1 "./images/MinimalArt-CitySTRWP.jpg"
+#:set default_image2 "./images/RenderArt-PaperWallSTRWP.jpg"
+#:set default_image3 "./images/RenderArt-TunelSTRWP.jpg"
+#:set default_image4 "./images/RenderArt-StoneWallSTRWP.jpg"
+#:set background_image "./images/RenderArt-StoneWallSTRWP.jpg"
+#:set defaultQR "./qrcodes/_QR_default.png"
+#:set phimage_link "./icons/SalletVISOR_icon.png"
+
+## ----------------------------------------------------------------------------------------------
+## transitions imported for screenchanges:
+## ----------------------------------------------------------------------------------------------
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+## -----------------------------------------------------------------------------
+#:import CardTransition kivy.uix.screenmanager.CardTransition
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
+#:import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import SwapTransition kivy.uix.screenmanager.SwapTransition
+#:import WipeTransition kivy.uix.screenmanager.WipeTransition
+
+## ----------------------------------------------------------------------------------------------
+## Root Widget definition: ScreenManager                            ScreenManager       START   -
+## ----------------------------------------------------------------------------------------------
+AppObjScreenManager:
+    id: ThisIsYourROOTWidget
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: background_image
+    ScreenIntro:
+        id: screen_intro
+    ScreenScan:
+        id: screen_scan
+    ScreenTx:
+        id: screen_tx
+    ScreenPub:
+        id: screen_pub
+    ScreenUtxo:
+        id: screen_utxo
+
+
+<AppObjScreenManager@ScreenManager>:
+    ## transition: NoTransition()
+    ## transition: CardTransition(direction="right", duration=0.1)
+    ## transition: FadeTransition(duration=0.3)  # elegant fade
+    ## transition: FallOutTransition(duration=0.05)    # opposites v
+    ## transition: RiseInTransition(duration=0.08)     # opposites ^
+    transition: SlideTransition()
+    ## transition: SwapTransition(duration=.5)
+    ## transition: WipeTransition(duration=1)
+
+## ----------------------------------------------------------------------------------------------
+## Root Widget definition: ScreenManager                            ScreenManager       ENDED   -
+## ----------------------------------------------------------------------------------------------
+
+<ScreenIntro@Screen>:
+    name: "screen_intro"
+    InScreenWindow:
+        TitleLine:
+            id: screen_intro_titleline
+            size_hint: 1, 0.1                   ##  0.1
+            display_title: "screen_intro"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                   ##  0.1     < 0.20
+        OpAreaIntro:
+            size_hint: 1, 0.75                  ##  0.75    < 0.95
+            id: opareaintro
+        Ribbon:
+            id: ribbon_intro
+            size_hint: 1, 0.05                  ##  0.05    < 1
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenScan@Screen>:
+    name: "screen_scan"
+    InScreenWindow:
+        TitleLine:
+            id: screen_scan_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "screen_scan"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaScan:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareascan
+        Ribbon:
+            id: ribbon_scan
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenTx@Screen>:
+    name: "screen_tx"
+    InScreenWindow:
+        TitleLine:
+            id: screen_tx_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "screen_tx"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaTx:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareatx
+        Ribbon:
+            id: ribbon_tx
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenPub@Screen>:
+    name: "screen_pub"
+    InScreenWindow:
+        TitleLine:
+            id: screen_pub_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "screen_pub"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaPub:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareapub
+        Ribbon:
+            id: ribbon_pub
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<ScreenUtxo@Screen>:
+    name: "screen_utxo"
+    InScreenWindow:
+        TitleLine:
+            id: screen_utxo_titleline
+            size_hint: 1, 0.1                      ##  0.1
+            display_title: "screen_utxo"
+        NavBar:
+            id: navbar
+            size_hint: 1, 0.1                      ##  0.1      < 0.20
+        OpAreaUtxo:
+            size_hint: 1, 0.75                     ##  0.75     < 0.95
+            id: opareautxo
+        Ribbon:
+            id: ribbon_utxo
+            size_hint: 1, 0.05
+            text_ribbon: "by Sziller"
+            image_source: phimage_link
+
+<InScreenWindow@BoxLayout>:
+    orientation: "vertical"
+
+<OperationAreaBox@BoxLayout>:
+    orientation: "vertical"
+
+<TitleLine@BoxLayout>:
+    display_title: "default"
+    orientation: "horizontal"
+    ScreenTitleLabel:
+        font_name: fn_title
+        font_size: fs_title
+        text: root.display_title
+
+<OpAreaIntro@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        LabelInfo:
+            id: labelinfo
+            size_hint: 1, 0.15
+            text: "Sometext..."
+
+<OpAreaScan@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image1
+
+<OpAreaTx@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image2
+
+<OpAreaPub@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image3
+
+<OpAreaUtxo@OperationAreaBox>:
+    BoxLayout:
+        padding: 20
+        spacing: 20
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: 1, 1
+            orientation: "horizontal"
+            AsyncImage:
+                id: qr_plot_layout
+                size_hint: 1, 1
+                source: default_image4
+
+<NavBar@BoxLayout>:
+    id: navbar
+    orientation: "horizontal"
+    size_hint: 1, 0.05
+    ButtonScreenNav:
+        id: button_nav_intro
+        target: "screen_intro"
+        disabled: True
+        text: "screen_intro"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_scan
+        target: "screen_scan"
+        text: "screen_scan"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_tx
+        target: "screen_tx"
+        text: "screen_tx"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_pub
+        target: "screen_pub"
+        text: "screen_pub"
+        on_release: root.on_release_navbar(self)
+    ButtonScreenNav:
+        id: button_nav_utxo
+        target: "screen_utxo"
+        text: "screen_utxo"
+        on_release: root.on_release_navbar(self)
+
+<Ribbon@BoxLayout>:
+    text_ribbon: "by Sziller"
+    image_source: None
+    orientation: "horizontal"
+    LabelRibbon:
+        text: root.text_ribbon
+    AsyncImage:
+        keep_ratio: True
+        allow_stretch: False
+        size_hint: 0.05, 1
+        source: root.image_source
+
+#   ---------------------------------------------------------------------
+#   - Label:                                                    START   -
+#   ---------------------------------------------------------------------
+
+<ScreenTitleLabel@Label>:
+    font_size: fs_title
+    font_name: fn_title
+
+<LabelInfo@Label>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    color: 0, 0, 0, 1
+    font_size: fs_subsubtitle
+    font_name: fn_subsubtitle
+    text_size: self.size
+    halign: 'center'  ## center, right, left
+    valign: 'center'  ## middle, top, bottom
+
+<LabelRibbon@Label>:
+    halign: 'right'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+    font_name: fn_button
+    font_size: fs_button
+    size_hint: 0.95, 1
+    text_size: self.size
+    padding: (10, 0)
+
+<LabelPH@Label>:
+
+#   ---------------------------------------------------------------------
+#   - Label:                                                    ENDED   -
+#   ---------------------------------------------------------------------
+
+
+#   ---------------------------------------------------------------------
+#   - TextInput:                                                START   -
+#   ---------------------------------------------------------------------
+
+<TextInParagraph@TextInput>:
+    font_name: fn_data
+    font_size: fs_data
+    text_size: self.size
+    line_height: 40
+    focus: True
+    hint_text: "enter project name"
+    padding: (2, 2)
+    foreground_color: (1,1,1,1)
+    background_color: (1,1,1,0.2)
+    cursor_color: (1,1,1,1)
+    halign: 'left'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+
+#   ---------------------------------------------------------------------
+#   - TextInput:                                                ENDED   -
+#   ---------------------------------------------------------------------
+
+#   ---------------------------------------------------------------------
+#   - Button:                                                   START   -
+#   ---------------------------------------------------------------------
+
+<ButtonScreenNav@Button>:
+    font_name: fn_button
+    font_size: fs_button
+    background_color: 0.3, 0.4, 0.3, 0.45
+    target: ""
+    text_size: self.size
+    color: (1, 1, 1)
+    padding: (2, 2)
+    text: "ToggleButton"
+    halign: 'center'  ## center, right, left
+    valign: 'middle'  ## middle, top, bottom
+
+#   ---------------------------------------------------------------------
+#   - Button:                                                   ENDED   -
+#   ---------------------------------------------------------------------
