@@ -24,13 +24,18 @@
 ## - Filelinks to be used globally:                                 -
 ## ------------------------------------------------------------------
 
-#:set default_image1 "./images/MinimalArt-CitySTRWP.jpg"
-#:set default_image2 "./images/RenderArt-PaperWallSTRWP.jpg"
-#:set default_image3 "./images/RenderArt-TunelSTRWP.jpg"
-#:set default_image4 "./images/RenderArt-StoneWallSTRWP.jpg"
-#:set background_image "./images/RenderArt-StoneWallSTRWP.jpg"
-#:set defaultQR "./qrcodes/_QR_default.png"
-#:set phimage_link "./icons/SalletVISOR_icon.png"
+#:set rootpath_utxo "./utxo/"
+#:set path_utxo "./utxo/"
+#:set default_image1 "./images/RenderArt-TunetSTRWP.jpg"
+#:set default_image2 "./"
+#:set default_image3 "./"
+#:set default_image4 "./"
+##:set background_image "./images/MinimalArt-CitySTRWP.jpg"
+#:set background_image "./images/MinimalIndustrySurf-02STRWP.jpg"
+##:set defaultQR "./qrcodes/_QR_default.png"
+##:set phimage_link "./icons/SalletVISOR_icon.png"
+#:set ribbonimage_link "./icons/caution.png"
+#:set phimage_link "./icons/caution.png"
 
 ## ----------------------------------------------------------------------------------------------
 ## transitions imported for screenchanges:
@@ -98,7 +103,7 @@ AppObjScreenManager:
             id: ribbon_intro
             size_hint: 1, 0.05                  ##  0.05    < 1
             text_ribbon: "by Sziller"
-            image_source: phimage_link
+            image_source: ribbonimage_link
 
 <ScreenScan@Screen>:
     name: "screen_scan"
@@ -117,7 +122,7 @@ AppObjScreenManager:
             id: ribbon_scan
             size_hint: 1, 0.05
             text_ribbon: "by Sziller"
-            image_source: phimage_link
+            image_source: ribbonimage_link
 
 <ScreenTx@Screen>:
     name: "screen_tx"
@@ -136,7 +141,7 @@ AppObjScreenManager:
             id: ribbon_tx
             size_hint: 1, 0.05
             text_ribbon: "by Sziller"
-            image_source: phimage_link
+            image_source: ribbonimage_link
 
 <ScreenPub@Screen>:
     name: "screen_pub"
@@ -155,7 +160,7 @@ AppObjScreenManager:
             id: ribbon_pub
             size_hint: 1, 0.05
             text_ribbon: "by Sziller"
-            image_source: phimage_link
+            image_source: ribbonimage_link
 
 <ScreenUtxo@Screen>:
     name: "screen_utxo"
@@ -174,7 +179,7 @@ AppObjScreenManager:
             id: ribbon_utxo
             size_hint: 1, 0.05
             text_ribbon: "by Sziller"
-            image_source: phimage_link
+            image_source: ribbonimage_link
 
 <InScreenWindow@BoxLayout>:
     orientation: "vertical"
@@ -195,10 +200,44 @@ AppObjScreenManager:
         padding: 20
         spacing: 20
         orientation: "vertical"
-        LabelInfo:
-            id: labelinfo
-            size_hint: 1, 0.15
-            text: "Sometext..."
+        Label:
+            id: lbl_intro_maininstr
+            size_hint: 1, 0.1
+            text: "Select method to create a new transaction"
+        BoxLayout:
+            size_hint: 1, 0.1
+            orientation: "horizontal"
+            Button:
+                id: constructmode_qr
+                text: "QR Scan"
+                on_release: root.btnclck_constr_qr(self)
+            Button:
+                id: constructmode_txt
+                text: "Text"
+                on_release: root.btnclck_constr_txt(self)
+            Button:
+                id: constructmode_stp
+                text: "Construct"
+                on_release: root.btnclck_constr_stp(self)
+        Label:
+            id: lbl_intro_subinstr
+            disabled: True
+            size_hint: 1, 0.1
+            text: "Select a utxo data file to construct transaction from"
+        FileChooserListView:
+            id: filechooser_utxo
+            disabled: True
+            name: "filechooser_utxo"
+            size_hint: 1, 0.4
+            pos_hint: {"center_y": 0.5}
+            rootpath: rootpath_utxo   ## set <path> to define the starting point
+            path: path_utxo
+            on_selection: root.on_fileclick(self)
+        Label:
+            size_hint: 1, 0.3
+            disabled: True
+            text: "Displaying utxo set"
+
 
 <OpAreaScan@OperationAreaBox>:
     BoxLayout:
@@ -207,11 +246,28 @@ AppObjScreenManager:
         orientation: "vertical"
         BoxLayout:
             size_hint: 1, 1
-            orientation: "horizontal"
-            AsyncImage:
-                id: qr_plot_layout
-                size_hint: 1, 1
-                source: default_image1
+            orientation: "vertical"
+            LabelInfo:
+                id: labelinfo
+                size_hint: 1, None
+                text: "Turn camera on and scan qr codes.\nDuplicates will be filtered out."
+            ScanArea:
+                size_hint: 1, 0.6
+                id: scan_area
+            ButtonToggleScan:
+                size_hint: 1, 0.2
+                id: button_convert
+                disabled: False
+                target: "screen_proc"
+                text: "Turn camera on"
+                on_state: root.on_toggle_scan_qr(self)
+
+<ScanArea@BoxLayout>:
+    Image:
+        id: img
+        keep_ratio: False
+        allow_stretch: True
+        source: default_image1
 
 <OpAreaTx@OperationAreaBox>:
     BoxLayout:
@@ -234,10 +290,15 @@ AppObjScreenManager:
         BoxLayout:
             size_hint: 1, 1
             orientation: "horizontal"
-            AsyncImage:
-                id: qr_plot_layout
-                size_hint: 1, 1
-                source: default_image3
+            Button:
+                id: btn_pub
+                size_hint: 1, 0.5
+                on_release: root.btnclck_publish(self)
+            Label:
+                id: lbl_pub
+                size_hint: 1, 0.5
+                text: "labelke"
+
 
 <OpAreaUtxo@OperationAreaBox>:
     BoxLayout:
@@ -251,6 +312,8 @@ AppObjScreenManager:
                 id: qr_plot_layout
                 size_hint: 1, 1
                 source: default_image4
+
+
 
 <NavBar@BoxLayout>:
     id: navbar
@@ -371,6 +434,25 @@ AppObjScreenManager:
     halign: 'center'  ## center, right, left
     valign: 'middle'  ## middle, top, bottom
 
+<ButtonToggleScan@ToggleButton>:
+    font_name: fn_button
+    font_size: fs_button
+    size_hint: 0.5, None # 0.15
+    height: dp(60)
+    pos_hint: {"center_x": .5, "center_y": .5}
+
 #   ---------------------------------------------------------------------
 #   - Button:                                                   ENDED   -
 #   ---------------------------------------------------------------------
+
+
+#   ---------------------------------------------------------------------
+#   - FileChooserListView:                                      START   -
+#   ---------------------------------------------------------------------
+
+<FileChooserListView>:
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.15, 1
+        Rectangle:
+            size: self.size

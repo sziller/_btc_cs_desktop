@@ -3,8 +3,122 @@ import sys
 
 from kivy.app import App
 from kivy.core.window import Window
+from kivy.clock import Clock
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+from kivy.graphics.texture import Texture
+
+import cv2
+from pyzbar import pyzbar
+
+
+class OperationAreaBox(BoxLayout):
+    pass
+
+
+class OpAreaIntro(OperationAreaBox):
+
+    def on_fileclick(self, inst):
+        print(inst.selection[0])
+
+    def btnclck_constr_qr(self, inst):
+        print(inst.state)
+
+    def btnclck_constr_txt(self, inst):
+        print(inst.state)
+
+    def btnclck_constr_stp(self, inst):
+        print(inst.state)
+
+
+class ScanArea(BoxLayout):
+    def __init__(self, **kwargs):
+        super(ScanArea, self).__init__(**kwargs)
+        self.orientation = 'horizontal'
+        self.cam = cv2.VideoCapture(0)
+
+        self.cam.set(3, 800)            # size settings, do not seem to be having an effect on Windows or Ubuntu system
+        self.cam.set(4, 600)            # size settings, do not seem to be having an effect on Windows or Ubuntu system
+
+        self.fps = 24                    # frames per sec.c
+        self.schedule = None            # an empty cast, to be created on scanning start
+        self.collected_strings = []     # list of string data read from QR codes
+
+        self.counter = 0
+
+    def start_scanning(self):
+        App.get_running_app().root.ids.screen_scan.ids.opareascan.ids.labelinfo.text = "Scanned the following:\n"
+        self.schedule = Clock.schedule_interval(self.update, 1.0 / self.fps)
+
+    def stop_scanning(self):
+        self.schedule.cancel()
+        for _ in self.collected_strings:
+            print(_)
+
+    def update(self, dt):
+        ret, frame = self.cam.read()  # ret: bool, frame seems to be a numpy data of the screen
+
+        if ret:
+            buf1 = cv2.flip(frame, 0)
+            buf = buf1.tobytes()
+            image_texture = Texture.create(size=(frame.shape[1], frame.shape[0]), colorfmt='bgr')
+            image_texture.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
+
+            self.ids.img.texture = image_texture
+
+            barcodes = pyzbar.decode(frame)  # lloking for codes in the frame...
+
+            if not barcodes:
+                scan_img = cv2.putText(frame, 'S', (50, 75), cv2.FONT_HERSHEY_DUPLEX, 1.5, (0, 255, 0), 2)
+                scan_buf = cv2.flip(scan_img, 0)
+                scan_buf = scan_buf.tobytes()
+                scan_texture = Texture.create(size=(scan_img.shape[1], scan_img.shape[0]), colorfmt='bgr')
+                scan_texture.blit_buffer(scan_buf, colorfmt='bgr', bufferfmt='ubyte')
+
+                self.ids.img.texture = scan_texture
+
+            else:
+                for barcode in barcodes:
+                    (x, y, w, h) = barcode.rect
+                    rectangle_img = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 7)
+                    rectangle_buf = cv2.flip(rectangle_img, 0)
+                    rectangle_buf = rectangle_buf.tobytes()
+                    rectangle_texture = Texture.create(size=(rectangle_img.shape[1], rectangle_img.shape[0]),
+                                                       colorfmt='bgr')
+                    rectangle_texture.blit_buffer(rectangle_buf, colorfmt='bgr', bufferfmt='ubyte')
+
+                    self.ids.img.texture = rectangle_texture
+
+                    actual_text = str(barcode.data.decode("utf-8"))
+                    if actual_text not in self.collected_strings:
+                        self.counter += 1
+                        self.collected_strings.append(actual_text)
+                        App.get_running_app().root.ids.screen_scan.ids.opareascan.ids.labelinfo.text +=\
+                            "\n{:<3}: {:>20}".format(self.counter, actual_text[:20])
+
+
+class OpAreaScan(OperationAreaBox):
+    def __init__(self, **kwargs):
+        super(OpAreaScan, self).__init__(**kwargs)
+
+    def on_toggle_scan_qr(self, inst):
+        if inst.state == "normal":
+            self.ids.scan_area.stop_scanning()
+            inst.text = "scanning stopped"
+        else:
+            self.ids.scan_area.start_scanning()
+            inst.text = "scanning..."
+        print("toggled camera on/off")
+
+
+class OpAreaPub(OperationAreaBox):
+    def __init__(self, **kwargs):
+        super(OpAreaPub, self).__init__(**kwargs)
+
+    def btnclck_publish(self, inst):
+        print("TX is being published")
 
 
 class AppObjScreenManager(ScreenManager):
@@ -68,7 +182,6 @@ class NavBar(BoxLayout):
         App.get_running_app().change_screen(screen_name=inst.target, screen_direction={True: "left", False: "right"}
         [old_seq - new_seq < 0])
         for buttinst in App.get_running_app().root.current_screen.ids.navbar.ids:
-            print(buttinst)
             if buttinst in App.get_running_app().root.statedict[inst.target]['normal']:
                 App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].disabled = False
                 App.get_running_app().root.current_screen.ids.navbar.ids[buttinst].state = "normal"
@@ -138,12 +251,12 @@ if __name__ == "__main__":
         content = Builder.load_file("app_sallet_visor.kv")
 
     application_title_in_window_head    = "SalletVISOR"
-    application_window_icon             = "./icons/SalletVISOR_icon.png"
+    application_window_icon             = "caution.png"
     content_size_multiplier             = 1
 
     application = AppObj(window_content=content,
                          app_title=application_title_in_window_head,
-                         app_icon = application_window_icon,
+                         app_icon=application_window_icon,
                          csm=content_size_multiplier)
 
     data_from_app = application.external_var
