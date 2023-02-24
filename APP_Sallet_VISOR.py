@@ -137,7 +137,7 @@ if __name__ == "__main__":
     except IndexError:
         content = Builder.load_file("app_sallet_visor.kv")
 
-    application_title_in_window_head    = "MyDefaultApp"
+    application_title_in_window_head    = "SalletVISOR"
     application_window_icon             = "./icons/SalletVISOR_icon.png"
     content_size_multiplier             = 1
 
